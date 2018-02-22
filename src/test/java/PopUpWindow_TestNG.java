@@ -8,13 +8,13 @@ import org.testng.annotations.*;
 public class PopUpWindow_TestNG {
     WebDriver ch = new ChromeDriver();
     @BeforeClass
-    public void preconditions() throws InterruptedException {
+    public void preconditionsMethod() throws InterruptedException {
         System.setProperty("webdriver.chrome.driver","C:\\Users\\Natalia\\Documents\\selenium-java-3.8.1\\chromedriver_win32\\chromedriver.exe");
         //WebDriver ch = new ChromeDriver();
         ch.get("http://fits.qauber.com/#/page/login");
     }
     @BeforeMethod
-    public void setupMethod() throws InterruptedException {
+    public void settingupMethod() throws InterruptedException {
         Thread.sleep(2000);
         ch.findElement(By.xpath("//*[@id=\"exampleInputEmail1\"]")).sendKeys("nkalinina73@live.com");
         ch.findElement(By.xpath("//*[@id=\"exampleInputPassword1\"]")).sendKeys("qwe123");
@@ -22,15 +22,15 @@ public class PopUpWindow_TestNG {
         ch.findElement(By.xpath("//button[@class='btn btn-block btn-primary mt-lg']")).click();
     }
    @AfterMethod
-    public void cleanupMethod()throws InterruptedException {
+    public void cleaningupMethod()throws InterruptedException {
         Thread.sleep(2000);
         ch.findElement(By.xpath("/html/body/div[2]/header/nav/div[2]/ul[2]/li/a/span")).click();
         Thread.sleep(2000);
         ch.findElement(By.xpath("/html/body/div[2]/aside[2]/nav/div/div/div[1]/div/div/div[4]/button")).click();
     }
 
-    @Test (priority = 0) //PopUp window
-    public void test1() throws InterruptedException {
+    @Test  //PopUp window
+    public void testing1() throws InterruptedException {
         Thread.sleep(3000);
         ch.findElement(By.xpath("/html/body/div[2]/aside[1]/div/nav/ul/li[2]/a/span")).click();
         Thread.sleep(2000);
@@ -61,32 +61,32 @@ public class PopUpWindow_TestNG {
         Thread.sleep(3000);
         ch.navigate().back();
     }
-    @Test (priority = 1,timeOut = 3000)
-        public void test2() throws InterruptedException {
+    @Test (dependsOnMethods = "testing1", alwaysRun = true, enabled = true)
+        public void testing2() throws InterruptedException {
         //click on Entity
         Thread.sleep(2000);
-        ch.findElement(By.xpath("/html/body/div[2]/aside[1]/div/nav/ul/li[2]/a/span")).click();Thread.sleep(4000);
+        ch.findElement(By.xpath("/html/body/div[2]/aside[1]/div/nav/ul/li[2]/a/span")).click();
+        Thread.sleep(4000);
         //click on Edit
         Thread.sleep(2000);
-        ch.findElement(By.xpath("/html/body/div[2]/section/div/div/div/div/table/tbody/tr[2]/td[4]/button[2]/em")).click();
+        ch.findElement(By.xpath("/html/body/div[2]/section/div/div/div/div/table/tbody/tr[2]/td[4]/button[2]")).click();
         Thread.sleep(2000);
         ch.findElement(By.xpath("/html/body/div[2]/section/div/div/div[1]/form/div[1]/div[1]/div/input")).clear();
 
-        ch.findElement(By.xpath("/html/body/div[2]/section/div/div/div[1]/form/div[1]/div[1]/div/input")).sendKeys("Odessa");
+        ch.findElement(By.xpath("/html/body/div[2]/section/div/div/div[1]/form/div[1]/div[1]/div/input")).sendKeys("Kiev");
         //click Update
-        Thread.sleep(2000);
+        Thread.sleep(4000);
         ch.findElement(By.xpath("/html/body/div[2]/section/div/div/div[2]/button")).click();
-        Thread.sleep(3000);
+        Thread.sleep(4000);
         ch.navigate().back();
 
 
     }
 
-    @AfterClass(timeOut = 5000)
-    public void tearDown() throws InterruptedException{
-    Thread.sleep(2000);
+    @AfterClass
+    public void tearDownFinal() throws InterruptedException{
 
-        Thread.sleep(2000);
+        Thread.sleep(4000);
         ch.close();
 
     }
